@@ -1,12 +1,30 @@
 <script setup lang="ts">
-import SvgIcon from "@/components/SvgIcon.vue";
+// import axios from "axios";
+import { loginApi } from "@/api/user.ts";
+const fetchData = async () => {
+  const data = await loginApi({
+    username: "system",
+    password: "111111",
+  });
+  if (data && data.code === 200) {
+    const {
+      data: { token },
+    } = data;
+    const userInfo = await getUserInfo(token);
+  }
+};
 </script>
 
 <template>
-  <div>
-    app <el-button type="primary">Primary</el-button>
-    <svg-icon name="home" color="pink" width="100px"></svg-icon>
+  <!-- <div class="">
+    app <el-button type="primary" @click="fetchData">Primary</el-button>
   </div>
+  <svg-icon name="home" color="pink" width="100px"></svg-icon> -->
+  <router-view></router-view>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+div {
+  color: $color;
+}
+</style>
